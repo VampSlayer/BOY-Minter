@@ -1,0 +1,12 @@
+{
+  "name": "boy #0",
+  "description": "Boy generative layer art test",
+  "image": "ipfs://bafkreidogcwdwkwnenywvbph2xpc7nt4nvlns32iwuxnkqbtqdcngnvpsq",
+  "attributes": [
+    { "trait_type": "background", "value": "black" },
+    { "trait_type": "face", "value": "rectangle" },
+    { "trait_type": "hair", "value": "brown" },
+    { "trait_type": "eyes", "value": "blue" },
+    { "trait_type": "mouth", "value": "closed" }
+  ]
+}
