@@ -11,15 +11,22 @@
   "dependencies": {
     "@rainbow-me/rainbowkit": "^2.0.0",
     "@tanstack/react-query": "^5.18.1",
+    "canvas": "^2.11.2",
     "framer-motion": "^6.3.3",
+    "jimp": "^0.22.10",
+    "merge-images": "^2.0.0",
     "next": "^14.0.4",
+    "nft.storage": "^7.1.1",
+    "object-hash": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "viem": "^2.7.3",
     "wagmi": "^2.5.5"
   },
   "devDependencies": {
+    "@types/merge-images": "^1.2.4",
     "@types/node": "^18.19.3",
+    "@types/object-hash": "^3.0.6",
     "@types/react": "^18.2.43",
     "eslint": "^8.15.0",
     "eslint-config-next": "^14.0.4",

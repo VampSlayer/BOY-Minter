@@ -54,7 +54,8 @@ button[data-mint-loading="true"] {
   background: rgba(22, 25, 31, 0.24);
 }
 
-button[data-mint-started="true"] {
+button[data-mint-started="true"],
+button[data-generated-started="true"] {
   background-image: linear-gradient(270deg, #ff6257, #ff5ca0);
   position: relative;
 }

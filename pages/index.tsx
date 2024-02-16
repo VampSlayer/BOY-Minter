@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 import { abi } from "../contract-abi";
 import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
+import { hexToNumber } from "viem";
 
 const contractConfig = {
   address: "0x38Ce4B879f5A91386BBf31C7c647c1d5146F5dF0",
@@ -55,6 +56,17 @@ const Home: NextPage = () => {
 
   const isMinted = txSuccess;
 
+  const mintFunction = (tokenURI: string) =>
+    mint?.({
+      ...contractConfig,
+      functionName: "safeMint",
+      args: [address, tokenURI],
+    });
+
+  const [newMintImageUrl, setNewMintImageUrl] = useState<string>("");
+
+  const [isGenerating, setIsGenerating] = useState(false);
+
   return (
     <div className="page">
       <div className="container">
@@ -80,24 +92,28 @@ const Home: NextPage = () => {
             {mounted && isConnected && !isMinted && (
               <button
                 style={{ marginTop: 24 }}
-                disabled={!mint || isMintLoading || isMintStarted}
+                disabled={
+                  !mint || isMintLoading || isMintStarted || isGenerating
+                }
                 className="button"
                 data-mint-loading={isMintLoading}
                 data-mint-started={isMintStarted}
-                onClick={() =>
-                  mint?.({
-                    ...contractConfig,
-                    functionName: "safeMint",
-                    args: [
-                      address,
-                      "ipfs://bafkreifgsq6zuqymf6gvfbcrihsv2lpfrnhqzvtyg555ldrwxkkaytwqii", // we need to get this thing from a server
-                    ],
-                  })
-                }
+                data-generated-started={isGenerating}
+                onClick={() => {
+                  setIsGenerating(true);
+                  fetch("/api/generate").then((res) => {
+                    res.json().then((data) => {
+                      setIsGenerating(false);
+                      mintFunction(data.url);
+                      setNewMintImageUrl(data.image);
+                    });
+                  });
+                }}
               >
+                {isGenerating && "Generating your BOY"}
                 {isMintLoading && "Waiting for approval"}
                 {isMintStarted && "Minting..."}
-                {!isMintLoading && !isMintStarted && "Mint"}
+                {!isGenerating && !isMintLoading && !isMintStarted && "Mint"}
               </button>
             )}
           </div>
@@ -119,15 +135,15 @@ const Home: NextPage = () => {
             <BackCard isCardFlipped={isMinted}>
               <div style={{ padding: 24 }}>
                 <Image
-                  src="/nft.png"
+                  src={`https://ipfs.io/ipfs/${newMintImageUrl.substring(7)}`}
                   width="80"
                   height="80"
-                  alt="RainbowKit Demo NFT"
+                  alt="Your BOY"
                   style={{ borderRadius: 8 }}
                 />
-                <h2 style={{ marginTop: 24, marginBottom: 6 }}>NFT Minted!</h2>
+                <h2 style={{ marginTop: 24, marginBottom: 6 }}>BOY Minted!</h2>
                 <p style={{ marginBottom: 24 }}>
-                  Your NFT will show up in your wallet in the next few minutes.
+                  Your BOY will show up in your wallet in the next few minutes.
                 </p>
                 <p style={{ marginBottom: 6 }}>
                   View on{" "}
@@ -138,7 +154,9 @@ const Home: NextPage = () => {
                 <p>
                   View on{" "}
                   <a
-                    href={`https://testnets.opensea.io/assets/sepolia/${txData?.to}/1`}
+                    href={`https://testnets.opensea.io/assets/sepolia/${
+                      txData?.to
+                    }/${hexToNumber(txData?.logs[0]?.topics[3] ?? `0x0`)}`}
                   >
                     Opensea
                   </a>
