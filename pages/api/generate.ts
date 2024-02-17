@@ -20,7 +20,7 @@ type ResponseData = {
   image: string;
 };
 
-async function mergeLayers(layers: any) {
+async function mergeLayers(layers: any): Promise<[Buffer, string]> {
   const imageLayers: any = [];
 
   Object.keys(layers).forEach((key) => {
@@ -38,7 +38,7 @@ async function mergeLayers(layers: any) {
 
   try {
     const result = await Jimp.read(buffer);
-    return result.getBufferAsync("image/png");
+    return [await result.getBufferAsync("image/png"), base64String];
   } catch (error: any) {
     throw new Error(error);
   }
@@ -155,11 +155,9 @@ export default async function handler(
     mouth,
   });
 
-  const image = await mergeLayers(layers);
+  const [image, base64String] = await mergeLayers(layers);
 
   const metadata = await saveToIPFS(image, layers);
 
-  res
-    .status(200)
-    .json({ url: metadata.url, image: metadata.data.image.toString() });
+  res.status(200).json({ url: metadata.url, image: base64String });
 }

@@ -13,7 +13,7 @@ import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
 import { hexToNumber } from "viem";
 
 const contractConfig = {
-  address: "0x38Ce4B879f5A91386BBf31C7c647c1d5146F5dF0",
+  address: "0x8c0bFf98795817B8beA5E4C1C2f0bEfA007402A8",
   abi,
 } as const;
 
@@ -135,25 +135,32 @@ const Home: NextPage = () => {
             <BackCard isCardFlipped={isMinted}>
               <div style={{ padding: 24 }}>
                 <Image
-                  src={`https://ipfs.io/ipfs/${newMintImageUrl.substring(7)}`}
+                  src={newMintImageUrl}
                   width="80"
                   height="80"
                   alt="Your BOY"
-                  style={{ borderRadius: 8 }}
+                  unoptimized={true}
                 />
-                <h2 style={{ marginTop: 24, marginBottom: 6 }}>BOY Minted!</h2>
+                <h2 style={{ marginTop: 24, marginBottom: 6 }}>
+                  #{hexToNumber(txData?.logs[0]?.topics[3] ?? `0x0`)} BOY
+                  Minted!
+                </h2>
                 <p style={{ marginBottom: 24 }}>
                   Your BOY will show up in your wallet in the next few minutes.
                 </p>
                 <p style={{ marginBottom: 6 }}>
                   View on{" "}
-                  <a href={`https://sepolia.etherscan.io/tx/${hash}`}>
+                  <a
+                    target="_blank"
+                    href={`https://sepolia.etherscan.io/tx/${hash}`}
+                  >
                     Etherscan
                   </a>
                 </p>
                 <p>
                   View on{" "}
                   <a
+                    target="_blank"
                     href={`https://testnets.opensea.io/assets/sepolia/${
                       txData?.to
                     }/${hexToNumber(txData?.logs[0]?.topics[3] ?? `0x0`)}`}
