@@ -74,11 +74,11 @@ const Home: NextPage = () => {
         <div style={{ flex: "1 1 auto" }}>
           <div style={{ padding: "24px 24px 24px 0" }}>
             <h1>Mint a BOY</h1>
+            <h4 style={{ margin: "8px 0 6px" }}>0.01 ETH</h4>
             <p style={{ margin: "12px 0 24px" }}>
               {Number(totalMinted)} minted so far!
             </p>
             <ConnectButton />
-
             {mintError && (
               <p style={{ marginTop: 24, color: "#FF6257" }}>
                 Error: {mintError.message}
@@ -89,7 +89,6 @@ const Home: NextPage = () => {
                 Error: {txError.message}
               </p>
             )}
-
             {mounted && isConnected && !isMinted && (
               <button
                 style={{ marginTop: 24 }}
