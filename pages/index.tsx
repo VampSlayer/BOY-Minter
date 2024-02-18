@@ -129,6 +129,7 @@ const Home: NextPage = () => {
                 width="500"
                 height="500"
                 alt="RainbowKit Demo NFT"
+                style={{ border: "3px solid black", borderRadius: "16px" }}
               />
               <h1 style={{ marginTop: 24 }}>Rainbow NFT</h1>
               <ConnectButton />

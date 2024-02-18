@@ -112,7 +112,7 @@ async function saveToIPFS(
 // https://www.bullionvault.co.uk/silver-guide/gold-silver-ratio
 const background = {
   white: 80,
-  silver: 20,
+  shiny: 20,
 };
 
 // https://www.researchgate.net/figure/Percentage-of-face-shapes-type-in-males_tbl2_332926733
@@ -127,9 +127,9 @@ const face = {
 // https://www.researchgate.net/figure/Number-and-percentages-of-hair-colours-in-the-UK-Biobank-cohort-by-gender_tbl1_329405511
 const hair = {
   red: 4, // #E25822
-  blonde: 10, // DDCC67
-  sienna: 40,
-  saddlebrown: 37,
+  blonde: 10, // #fbe7a1
+  brown: 40, // #B38B67
+  sienna: 37,
   black: 8,
   silver: 1,
 };
@@ -137,7 +137,7 @@ const hair = {
 // https://www.glasses.com/gl-us/blog/rarest-eye-color
 const eyes = {
   green: 9, // #046307
-  hazel: 18, // C8B575
+  hazel: 18, // #C8B575
   blue: 27, // #40B0E0
   sienna: 45, // sienna
   grey: 1, // silver
