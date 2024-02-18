@@ -13,7 +13,7 @@ import FlipCard, { BackCard, FrontCard } from "../components/FlipCard";
 import { hexToNumber } from "viem";
 
 const contractConfig = {
-  address: "0x8c0bFf98795817B8beA5E4C1C2f0bEfA007402A8",
+  address: "0x9100B9735294C9AA156390a6e47D0d275B053977",
   abi,
 } as const;
 
@@ -61,6 +61,7 @@ const Home: NextPage = () => {
       ...contractConfig,
       functionName: "safeMint",
       args: [address, tokenURI],
+      value: 10000000000000000n,
     });
 
   const [newMintImageUrl, setNewMintImageUrl] = useState<string>("");
@@ -124,7 +125,7 @@ const Home: NextPage = () => {
             <FrontCard isCardFlipped={isMinted}>
               <Image
                 layout="responsive"
-                src="/nft.png"
+                src="/nft.gif"
                 width="500"
                 height="500"
                 alt="RainbowKit Demo NFT"
